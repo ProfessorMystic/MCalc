@@ -1,0 +1,185 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fmodern\fcharset0 Courier-Oblique;}
+{\colortbl;\red255\green255\blue255;\red191\green100\blue38;\red32\green32\blue32;\red153\green168\blue186;
+\red133\green96\blue154;\red86\green132\blue173;\red254\green187\blue91;\red88\green118\blue71;}
+{\*\expandedcolortbl;;\csgenericrgb\c74902\c39216\c14902;\csgenericrgb\c12549\c12549\c12549;\csgenericrgb\c60000\c65882\c72941;
+\csgenericrgb\c52157\c37647\c60392;\csgenericrgb\c33725\c51765\c67843;\csgenericrgb\c99608\c73333\c35686;\csgenericrgb\c34510\c46275\c27843;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs26 \cf2 \cb3 public class \cf4 MPro \{\
+    \cf2 private double \cf5 principle\cf2 ;\
+    private int \cf5 amortization\cf2 ;\
+    private double \cf5 interest\cf2 ;\
+    public static final int 
+\f1\i \cf5 AMORT_MIN 
+\f0\i0 \cf4 = \cf6 20\cf2 ;\
+    public static final int 
+\f1\i \cf5 AMORT_MAX 
+\f0\i0 \cf4 = \cf6 30\cf2 ;\
+    public static final int 
+\f1\i \cf5 INTEREST_MAX 
+\f0\i0 \cf4 = \cf6 50\cf2 ;\
+    public static final double 
+\f1\i \cf5 EPSILON 
+\f0\i0 \cf4 = \cf6 0.001D\cf2 ;\
+    private static final int 
+\f1\i \cf5 MONTH_PER_YEAR 
+\f0\i0 \cf4 = \cf6 12\cf2 ;\
+\
+    public \cf7 MPro\cf4 (String p\cf2 , \cf4 String a\cf2 , \cf4 String i) \{\
+        \cf2 this\cf4 .setPrinciple(p)\cf2 ;\
+        this\cf4 .setAmortization(a)\cf2 ;\
+        this\cf4 .setInterest(i)\cf2 ;\
+    \cf4 \}\
+\
+    \cf2 public \cf7 MPro\cf4 (String p\cf2 , \cf4 String i) \{\
+        \cf2 this\cf4 .setPrinciple(p)\cf2 ;\
+        this\cf4 .\cf5 amortization \cf4 = \cf6 30\cf2 ;\
+        this\cf4 .setInterest(i)\cf2 ;\
+    \cf4 \}\
+\
+    \cf2 public \cf7 MPro\cf4 () \{\
+        \cf2 this\cf4 .\cf5 principle \cf4 = \cf6 0.0D\cf2 ;\
+        this\cf4 .\cf5 interest \cf4 = \cf6 0.0D\cf2 ;\
+        this\cf4 .\cf5 amortization \cf4 = \cf6 20\cf2 ;\
+    \cf4 \}\
+\
+    \cf2 public \cf4 String \cf7 getPrinciple\cf4 () \{\
+        \cf2 return \cf4 String.
+\f1\i format
+\f0\i0 (\cf8 "%f"\cf2 , this\cf4 .\cf5 principle\cf4 )\cf2 ;\
+    \cf4 \}\
+\
+    \cf2 public \cf4 String \cf7 getAmortization\cf4 () \{\
+        \cf2 return \cf4 String.
+\f1\i format
+\f0\i0 (\cf8 "%d"\cf2 , this\cf4 .\cf5 amortization\cf4 )\cf2 ;\
+    \cf4 \}\
+\
+    \cf2 public \cf4 String \cf7 getInterest\cf4 () \{\
+        \cf2 return \cf4 String.
+\f1\i format
+\f0\i0 (\cf8 "%f"\cf2 , this\cf4 .\cf5 interest\cf4 )\cf2 ;\
+    \cf4 \}\
+\
+    \cf2 public void \cf7 setPrinciple\cf4 (String p) \{\
+        \cf2 double \cf4 result\cf2 ;\
+        try \cf4 \{\
+            result = Double.
+\f1\i parseDouble
+\f0\i0 (p)\cf2 ;\
+        \cf4 \} \cf2 catch \cf4 (Exception var5) \{\
+            \cf2 throw new \cf4 RuntimeException(\cf8 "Principle not numeric!"\cf4 )\cf2 ;\
+        \cf4 \}\
+\
+        \cf2 if \cf4 (result <= \cf6 0.0D\cf4 ) \{\
+            \cf2 throw new \cf4 RuntimeException(\cf8 "Principle not positive!"\cf4 )\cf2 ;\
+        \cf4 \} \cf2 else \cf4 \{\
+            \cf2 this\cf4 .\cf5 principle \cf4 = result\cf2 ;\
+        \cf4 \}\
+    \}\
+\
+    \cf2 public void \cf7 setAmortization\cf4 (String a) \{\
+        \cf2 int \cf4 result\cf2 ;\
+        try \cf4 \{\
+            result = Integer.
+\f1\i parseInt
+\f0\i0 (a)\cf2 ;\
+        \cf4 \} \cf2 catch \cf4 (Exception var4) \{\
+            \cf2 throw new \cf4 RuntimeException(\cf8 "Amortization not numeric!"\cf4 )\cf2 ;\
+        \cf4 \}\
+\
+        \cf2 if \cf4 (result >= \cf6 20 \cf4 && result <= \cf6 30\cf4 ) \{\
+            \cf2 this\cf4 .\cf5 amortization \cf4 = result\cf2 ;\
+        \cf4 \} \cf2 else \cf4 \{\
+            \cf2 throw new \cf4 RuntimeException(\cf8 "Amortization out of range!"\cf4 )\cf2 ;\
+        \cf4 \}\
+    \}\
+\
+    \cf2 public void \cf7 setInterest\cf4 (String i) \{\
+        \cf2 double \cf4 result\cf2 ;\
+        try \cf4 \{\
+            result = Double.
+\f1\i parseDouble
+\f0\i0 (i)\cf2 ;\
+        \cf4 \} \cf2 catch \cf4 (Exception var5) \{\
+            \cf2 throw new \cf4 RuntimeException(\cf8 "Interest not numeric!"\cf4 )\cf2 ;\
+        \cf4 \}\
+\
+        \cf2 if \cf4 (!(result < \cf6 0.0D\cf4 ) && !(result > \cf6 50.0D\cf4 )) \{\
+            \cf2 this\cf4 .\cf5 interest \cf4 = result\cf2 ;\
+        \cf4 \} \cf2 else \cf4 \{\
+            \cf2 throw new \cf4 RuntimeException(\cf8 "Interest out of range!"\cf4 )\cf2 ;\
+        \cf4 \}\
+    \}\
+\
+    \cf2 public \cf4 String \cf7 computePayment\cf4 (String format) \{\
+        \cf2 return \cf4 String.
+\f1\i format
+\f0\i0 (format\cf2 , this\cf4 .computePayment())\cf2 ;\
+    \cf4 \}\
+\
+    \cf2 private double \cf7 computePayment\cf4 () \{\
+        \cf2 double \cf4 p = \cf2 this\cf4 .\cf5 principle\cf2 ;\
+        int \cf4 n = \cf2 this\cf4 .\cf5 amortization \cf4 * \cf6 12\cf2 ;\
+        double \cf4 r = \cf2 this\cf4 .\cf5 interest \cf4 / \cf6 100.0D \cf4 / \cf6 12.0D\cf2 ;\
+        double \cf4 result\cf2 ;\
+        if \cf4 (\cf2 this\cf4 .\cf5 interest \cf4 <= \cf6 0.001D\cf4 ) \{\
+            result = p / (\cf2 double\cf4 )n\cf2 ;\
+        \cf4 \} \cf2 else \cf4 \{\
+            \cf2 double \cf4 numerator = r * p\cf2 ;\
+            double \cf4 denominator = Math.
+\f1\i pow
+\f0\i0 (\cf6 1.0D \cf4 + r\cf2 , \cf4 (\cf2 double\cf4 )n)\cf2 ;\
+            \cf4 denominator = \cf6 1.0D \cf4 / denominator\cf2 ;\
+            \cf4 denominator = \cf6 1.0D \cf4 - denominator\cf2 ;\
+            \cf4 result = numerator / denominator\cf2 ;\
+        \cf4 \}\
+\
+        \cf2 return \cf4 result\cf2 ;\
+    \cf4 \}\
+\
+    \cf2 public \cf4 String \cf7 outstandingAfter\cf4 (\cf2 int \cf4 years\cf2 , \cf4 String format) \{\
+        \cf2 return \cf4 String.
+\f1\i format
+\f0\i0 (format\cf2 , this\cf4 .outstandingAfter(years))\cf2 ;\
+    \cf4 \}\
+\
+    \cf2 private double \cf7 outstandingAfter\cf4 (\cf2 int \cf4 years) \{\
+        \cf2 double \cf4 p = \cf2 this\cf4 .\cf5 principle\cf2 ;\
+        double \cf4 r = \cf2 this\cf4 .\cf5 interest \cf4 / \cf6 100.0D \cf4 / \cf6 12.0D\cf2 ;\
+        double \cf4 result\cf2 ;\
+        if \cf4 (\cf2 this\cf4 .\cf5 interest \cf4 <= \cf6 0.001D\cf4 ) \{\
+            result = p - (\cf2 double\cf4 )(years * \cf6 12\cf4 ) * \cf2 this\cf4 .computePayment()\cf2 ;\
+        \cf4 \} \cf2 else \cf4 \{\
+            result = \cf2 this\cf4 .computePayment() / r - p\cf2 ;\
+            \cf4 result *= Math.
+\f1\i pow
+\f0\i0 (\cf6 1.0D \cf4 + r\cf2 , \cf4 (\cf2 double\cf4 )(\cf6 12 \cf4 * years)) - \cf6 1.0D\cf2 ;\
+            \cf4 result = p - result\cf2 ;\
+        \cf4 \}\
+\
+        \cf2 if \cf4 (Math.
+\f1\i abs
+\f0\i0 (result) < \cf6 0.001D\cf4 ) \{\
+            result = \cf6 0.0D\cf2 ;\
+        \cf4 \}\
+\
+        \cf2 return \cf4 result\cf2 ;\
+    \cf4 \}\
+\
+    \cf2 public \cf4 String \cf7 toString\cf4 () \{\
+        \cf2 return \cf8 "MPro instance with principle=" \cf4 + \cf2 this\cf4 .getPrinciple() + \cf8 " amortization=" \cf4 + \cf2 this\cf4 .getAmortization() + \cf8 " interest=" \cf4 + \cf2 this\cf4 .getInterest()\cf2 ;\
+    \cf4 \}\
+\
+    \cf2 public boolean \cf7 equals\cf4 (MPro other) \{\
+        \cf2 return \cf4 Math.
+\f1\i abs
+\f0\i0 (\cf2 this\cf4 .\cf5 principle \cf4 - other.\cf5 principle\cf4 ) <= \cf6 0.001D \cf4 && \cf2 this\cf4 .\cf5 amortization \cf4 == other.\cf5 amortization \cf4 && Math.
+\f1\i abs
+\f0\i0 (\cf2 this\cf4 .\cf5 interest \cf4 - other.\cf5 interest\cf4 ) <= \cf6 0.001D\cf2 ;\
+    \cf4 \}\
+\}\
+\
+}
