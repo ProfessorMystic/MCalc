@@ -1,7 +1,6 @@
-package ca.yorku.mcalcpro;
+package Mortgage.Calc;
 
 import androidx.appcompat.app.AppCompatActivity;
-import ca.roumani.i2c.MPro;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -22,9 +21,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SensorManager sm = (SensorManager)
-                getSystemService(SENSOR_SERVICE);
+                getSystemService(SENSOR_SERVICE); //incorporating sensor
         sm.registerListener(this, sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-        this.tts = new TextToSpeech(this, this);
+        this.tts = new TextToSpeech(this, this); //incorporating text-to-speech
 
     }
 
@@ -33,20 +32,25 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     public void glue(View v) {
 
         try {
+            //appending user-text-input boxes to variables p,a,i
             EditText p = (EditText) findViewById(R.id.textInputEditText);
             EditText a = (EditText) findViewById(R.id.textInputEditText2);
             EditText i = (EditText) findViewById(R.id.textInputEditText3);
 
+            //instantiating p,a,i, into strings
             String pS = p.getText().toString();
             String aS = a.getText().toString();
             String iS = i.getText().toString();
 
-            MPro mp = new MPro();
-            mp.setPrinciple(pS);
-            mp.setAmortization(aS);
-            mp.setInterest(iS);
+            //create new object which carries strings pS, aS, iS in heap
+            Calculations cal = new Calculations();
+            cal.setPrinciple(pS);
+            cal.setAmortization(aS);
+            cal.setInterest(iS);
 
-            String s = "Monthly Payment = $" + mp.computePayment("%,.2f");
+            //constructing string post-input; annexing string with new line depicting balance after set amount of years
+
+            String s = "Monthly Payment = $" + cal.computePayment("%,.2f");
             s += "\n\n";
             s += "By making this payment monthly for " + aS + " years, the mortgage will be paid in full. " +
                     "But if you terminate the mortgage on its 'nth' anniversary, " +
@@ -54,27 +58,28 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             s += "\n\n";
             s += "       n        Balance";
             s += "\n\n";
-            s += String.format("%8d", 0) + mp.outstandingAfter(0, "%,16.0f");
+            s += String.format("%8d", 0) + cal.outstandingAfter(0, "%,16.0f");
             s += "\n\n";
-            s += String.format("%8d", 1) + mp.outstandingAfter(1, "%,16.0f");
+            s += String.format("%8d", 1) + cal.outstandingAfter(1, "%,16.0f");
             s += "\n\n";
-            s += String.format("%8d", 2) + mp.outstandingAfter(2, "%,16.0f");
+            s += String.format("%8d", 2) + cal.outstandingAfter(2, "%,16.0f");
             s += "\n\n";
-            s += String.format("%8d", 3) + mp.outstandingAfter(3, "%,16.0f");
+            s += String.format("%8d", 3) + cal.outstandingAfter(3, "%,16.0f");
             s += "\n\n";
-            s += String.format("%8d", 4) + mp.outstandingAfter(4, "%,16.0f");
+            s += String.format("%8d", 4) + cal.outstandingAfter(4, "%,16.0f");
             s += "\n\n";
-            s += String.format("%8d", 5) + mp.outstandingAfter(5, "%,16.0f");
+            s += String.format("%8d", 5) + cal.outstandingAfter(5, "%,16.0f");
             s += "\n\n";
-            s += String.format("%8d", 10) + mp.outstandingAfter(10, "%,16.0f");
+            s += String.format("%8d", 10) + cal.outstandingAfter(10, "%,16.0f");
             s += "\n\n";
-            s += String.format("%8d", 15) + mp.outstandingAfter(15, "%,16.0f");
+            s += String.format("%8d", 15) + cal.outstandingAfter(15, "%,16.0f");
             s += "\n\n";
-            s += String.format("%8d", 20) + mp.outstandingAfter(20, "%,16.0f");
+            s += String.format("%8d", 20) + cal.outstandingAfter(20, "%,16.0f");
             ((TextView)findViewById(R.id.textView)).setText(s);
 
             tts.speak(s, TextToSpeech.QUEUE_FLUSH, null);
         } catch (Exception e){
+            //float message depicting invalid inputs
             Toast label = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
             label.show();
         }
