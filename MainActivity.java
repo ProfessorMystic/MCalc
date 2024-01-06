@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
             //create new object which carries strings pS, aS, iS in heap
             Calculations cal = new Calculations();
-            cal.setPrinciple(pS);
+            cal.setPrincipal(pS);
             cal.setAmortization(aS);
             cal.setInterest(iS);
 
