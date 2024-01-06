@@ -1,7 +1,7 @@
 package Mortgage.Calc;
 
 public class Calculations {
-    private double principle;
+    private double principal;
     private int amortization;
     private double interest;
     public static final int minAmort = 20;
@@ -12,13 +12,13 @@ public class Calculations {
 
     //constructors to set value to private attributes
     public Calculations() {
-        this.principle = 0.0D;
+        this.principal = 0.0D;
         this.interest = 0.0D;
         this.amortization = minAmort;
     }
     //methods which return attributes
     public String getPrinciple() {
-        return String.format("%f", this.principle);
+        return String.format("%f", this.principal);
     }
 
     public String getAmortization() {
@@ -30,7 +30,7 @@ public class Calculations {
     }
 
     //methods which set attributes; makes sure they're within acceptable range
-    public void setPrinciple(String p) {
+    public void setPrincipal(String p) {
         double result;
         try {
             result = Double.parseDouble(p);
@@ -41,7 +41,7 @@ public class Calculations {
         if (result <= 0.0D) {
             throw new RuntimeException("Principle not positive!");
         } else {
-            this.principle = result;
+            this.principal = result;
         }
     }
 
@@ -81,7 +81,7 @@ public class Calculations {
     }
 
     private double computePayment() {
-        double p = this.principle;
+        double p = this.principal;
         int n = this.amortization * monthYear;
         double r = this.interest / 100.0D / 12.0D;
         double result;
@@ -104,7 +104,7 @@ public class Calculations {
     }
 
     private double outstandingAfter(int years) {
-        double p = this.principle;
+        double p = this.principal;
         double r = this.interest / 100.0D / 12.0D;
         double result;
         if (this.interest <= epsilon) {
@@ -124,7 +124,8 @@ public class Calculations {
 
     //toString method which depicts calculations
     public String toString() {
-        return "Calculations instance with principle=" + this.getPrinciple() + " amortization=" + this.getAmortization() + " interest=" + this.getInterest();
+        return "Calculations instance with principle=" + this.getPrinciple() + " amortization=" +
+                this.getAmortization() + " interest=" + this.getInterest();
     }
 }
 
