@@ -10,7 +10,7 @@
         android:id="@+id/textInputEditText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Principle"
+        android:hint="Principal"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
